@@ -5,16 +5,6 @@ using namespace std;
 using Matrix = array<array<int, 8>, 8>;
 
 
-bool is_in_matrix(int &coordinate) {
-	if (coordinate >= 0 && coordinate < 8) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
-
 int get_live_neighbours(int x, int y, Matrix &matrix) {
 	int live_neighbours = 0;
 
