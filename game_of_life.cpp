@@ -1,5 +1,4 @@
 #include <array>
-#include <iostream>
 
 using namespace std;
 using Matrix = array<array<int, 8>, 8>;
