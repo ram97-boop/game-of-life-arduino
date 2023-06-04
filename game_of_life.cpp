@@ -1,28 +1,34 @@
-#include <array>
+// #include <array>
 
 using namespace std;
-using Matrix = array<array<int, 8>, 8>;
+// using Matrix = array<array<int, 8>, 8>;
+using Matrix = int[8][8];
 
 
 int get_live_neighbours(int x, int y, Matrix &matrix) {
 	int live_neighbours = 0;
 
-	array<array<int, 2>, 8> neighbour_relative_coordinates = { {
-		{ {-1, -1} },
-		{ {-1, 0} },
-		{ {-1, 1} },
-		{ {0, -1} },
-		{ {0, 1} },
-		{ {1, -1} },
-		{ {1, 0} },
-		{ {1, 1} },
-	} };
+	// array<array<int, 2>, 8> neighbour_relative_coordinates = { {
+		int neighbour_relative_coordinates[8][2] = {
+		{-1, -1},
+		{-1, 0},
+		{-1, 1},
+		{0, -1},
+		{0, 1},
+		{1, -1},
+		{1, 0},
+		{1, 1},
+	};
 
-	for (array<int,2> coordinates : neighbour_relative_coordinates) {
-		int neighbour_x = (coordinates.at(0) + x + 8) % 8;
-		int neighbour_y = (coordinates.at(1) + y + 8) % 8;
+	// for (int[2] coordinates : neighbour_relative_coordinates) {
+	for (int i=0; i<8; i++) {
+		// int neighbour_x = (coordinates.at(0) + x + 8) % 8;
+		int neighbour_x = (neighbour_relative_coordinates[i][0] + x + 8) % 8;
+		// int neighbour_y = (coordinates.at(1) + y + 8) % 8;
+		int neighbour_y = (neighbour_relative_coordinates[i][1] + y + 8) % 8;
 
-		if (matrix.at(neighbour_x).at(neighbour_y) == 1) {
+		// if (matrix.at(neighbour_x).at(neighbour_y) == 1) {
+		if (matrix[neighbour_x][neighbour_y] == 1) {
 			live_neighbours++;
 		}
 	}
@@ -34,20 +40,29 @@ int get_live_neighbours(int x, int y, Matrix &matrix) {
 void cell_next_state(int x, int y, Matrix &matrix, Matrix &new_matrix) {
 	int live_neighbours = get_live_neighbours(x, y, matrix);
 
-	if (live_neighbours < 2) {
-		new_matrix.at(x).at(y) = 0;
+	if (live_neighbours < 2 || live_neighbours > 3) {
+		// new_matrix.at(x).at(y) = 0;
+		new_matrix[x][y] = 0;
 	}
 	else if (live_neighbours == 3) {
-		new_matrix.at(x).at(y) = 1;
+		// new_matrix.at(x).at(y) = 1;
+		new_matrix[x][y] = 1;
 	}
-	else if (live_neighbours > 3) {
-		new_matrix.at(x).at(y) = 0;
-	}
+	// else if (live_neighbours > 3) { // Todo: place as OR condition in first if-statement.
+	// 	// new_matrix.at(x).at(y) = 0;
+	// 	new_matrix[x][y] = 0;
+	// }
 }
 
 
 void next_generation(Matrix &matrix) {
-	Matrix new_matrix = matrix;
+	// Matrix new_matrix = matrix;
+	Matrix new_matrix;
+	for (int x=0; x<8; x++) {
+		for (int y=0; y<8; y++) {
+			new_matrix[x][y] = matrix[x][y];
+		}
+	}
 
 	for (int x=0; x<8; x++) {
 		for (int y=0; y<8; y++) {
@@ -55,5 +70,10 @@ void next_generation(Matrix &matrix) {
 		}
 	}
 
-	matrix = new_matrix;
+	// matrix = new_matrix;
+	for (int x=0; x<8; x++) {
+		for (int y=0; y<8; y++) {
+			matrix[x][y] = new_matrix[x][y];
+		}
+	}
 }
