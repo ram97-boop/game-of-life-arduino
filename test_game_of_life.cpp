@@ -1,11 +1,9 @@
 #define CATCH_CONFIG_MAIN
 
-// #include <array>
 #include "../catch.hpp"
 #include "game_of_life.hpp"
 
 using namespace std;
-// using Matrix = array<array<int, 8>, 8>;;
 using Matrix = int[8][8];
 
 TEST_CASE("Get live neighbours") {
