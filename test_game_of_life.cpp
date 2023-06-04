@@ -6,6 +6,7 @@
 using namespace std;
 using Matrix = int[8][8];
 
+
 TEST_CASE("Get live neighbours") {
     Matrix matrix {
         {0, 1, 0, 0, 0, 0, 1, 1},
@@ -32,6 +33,7 @@ TEST_CASE("Get live neighbours") {
     REQUIRE(4 == actual_5);
     REQUIRE(3 == actual_6);
 }
+
 
 TEST_CASE("Cyclical world") {
     Matrix matrix {
@@ -60,6 +62,7 @@ TEST_CASE("Cyclical world") {
 
     REQUIRE(expected == matrix);
 }
+
 
 TEST_CASE("Next generation") {
     Matrix matrix {
